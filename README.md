@@ -8,3 +8,4 @@
 - Run the following: ```npm install @discordjs/rest discord-api-types```
 - Run ```node deploy-commands.js``` 
 - Run ```node index.js```
+- Run ```npm install @tensorflow/tfjs @tensorflow-models/toxicity```
