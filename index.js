@@ -16,7 +16,7 @@ let model;
 // Load the model. Users optionally pass in a threshold and an array of
 // labels to include.
 
-  const sentences = ['you suck'];
+  //const sentences = ['you suck'];
 
 //   model.classify(sentences).then(predictions => {
 //     // `predictions` is an array of objects, one for each prediction head,
@@ -79,10 +79,12 @@ client.once('ready', async() => {
 client.on("messageCreate", async msg => {
 	if (msg.author.bot) { return; }
 	else{
-		let predictions = await model.classify(sentences);
+		let predictions = await model.classify(msg.content);
 		predictions.forEach(prediction => {
 			if(prediction.results[0].match){
-				msg.reply("Warning!");
+				var pred = prediction.label
+				msg.reply("Warning!" + pred + " detected!");
+				//console.log(prediction.label)
 			}
 		}); 
 	   }// with mention
