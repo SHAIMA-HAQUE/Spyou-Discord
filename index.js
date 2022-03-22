@@ -10,17 +10,6 @@ const client = new Client({
 			Intents.FLAGS.GUILD_MESSAGES,
 ] });
 
-client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.data.name, command);
-}
-
-client.once('ready', () => {
-	console.log('Ready!');
-});
 // The minimum prediction confidence.
 const threshold = 0.9;
 
@@ -70,6 +59,19 @@ client.on('interactionCreate', async interaction => {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
+});
+
+
+client.commands = new Collection();
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.data.name, command);
+}
+
+client.once('ready', () => {
+	console.log('Ready!');
 });
 
 
