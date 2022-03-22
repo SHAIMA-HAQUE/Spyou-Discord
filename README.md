@@ -6,5 +6,6 @@
 - Run ```npm init```
 - Install discord.js by ```npm install discord.js```
 - Run the following: ```npm install @discordjs/rest discord-api-types```
+- Run ```npm install @tensorflow/tfjs @tensorflow-models/toxicity```
 - Run ```node deploy-commands.js``` 
 - Run ```node index.js```
