@@ -86,7 +86,7 @@ client.on("messageCreate", async msg => {
 			if(prediction.results[0].match){
 				// channel.messages.cache.delete(message.id);
 				var pred = prediction.label
-				msg.channel.send(`${pred} detected`)
+				msg.channel.send(`Deleted message from ${msg.author.username} as ${pred.charAt(0).toUpperCase()+pred.slice(1)} was detected in the message! Please adhere to community guidelines`);
 				msg.delete()
   				.then(msg => console.log(`Deleted message from ${msg.author.username}`))
   				.catch(console.error);
