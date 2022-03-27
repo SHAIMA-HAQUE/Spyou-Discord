@@ -79,11 +79,19 @@ client.once('ready', async() => {
 client.on("messageCreate", async msg => {
 	if (msg.author.bot) { return; }
 	else{
-		let predictions = await model.classify(msg.content);
+		text = msg.content;
+		let predictions = await model.classify(text);
+		// message = this.getMessage(data, channel);
 		predictions.forEach(prediction => {
 			if(prediction.results[0].match){
+				// channel.messages.cache.delete(message.id);
 				var pred = prediction.label
-				msg.reply("Warning!" + pred + " detected!");
+				msg.channel.send(`${pred} detected`)
+				msg.delete()
+  				.then(msg => console.log(`Deleted message from ${msg.author.username}`))
+  				.catch(console.error);
+				
+				//msg.reply("Warning!" + pred + " detected!");
 				//console.log(prediction.label)
 			}
 		}); 
