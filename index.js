@@ -77,6 +77,7 @@ client.once('ready', async() => {
 
 
 client.on("messageCreate", async msg => {
+	var pred = [];
 	if (msg.author.bot) { return; }
 	else{
 		text = msg.content;
@@ -85,16 +86,24 @@ client.on("messageCreate", async msg => {
 		predictions.forEach(prediction => {
 			if(prediction.results[0].match){
 				// channel.messages.cache.delete(message.id);
-				var pred = prediction.label
-				msg.channel.send(`Deleted message from ${msg.author.username} as ${pred.charAt(0).toUpperCase()+pred.slice(1)} was detected in the message! Please adhere to community guidelines`);
+				pred.push(prediction.label);
+			}
+		});
+		var text_display = "";
+            if(pred.length != 1 && pred.length >0){
+            for(let i=0; i<pred.length-1;i++){
+                text_display += pred[i].charAt(0).toUpperCase() + pred[i].slice(1) + " and ";
+            }
+            text_display += pred[pred.length-1].charAt(0).toUpperCase() + pred[pred.length-1].slice(1);
+          	}else if(pred.length == 1){
+            	text_display = pred[0].charAt(0).toUpperCase() + pred[0].slice(1);
+          	}
+			if (pred.length !=0){
+				msg.channel.send(`Deleted message from <@${msg.author.username}> as ${text_display} was detected in the message! Please adhere to community guidelines`);
 				msg.delete()
   				.then(msg => console.log(`Deleted message from ${msg.author.username}`))
   				.catch(console.error);
-				
-				//msg.reply("Warning!" + pred + " detected!");
-				//console.log(prediction.label)
 			}
-		}); 
 	   }// with mention
 });
     // var message = new MessageEmbed()
