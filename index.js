@@ -99,7 +99,7 @@ client.on("messageCreate", async msg => {
             	text_display = pred[0].charAt(0).toUpperCase() + pred[0].slice(1);
           	}
 			if (pred.length !=0){
-				msg.channel.send(`Deleted message from <@${msg.author.username}> as ${text_display} was detected in the message! Please adhere to community guidelines`);
+				msg.channel.send(`Deleted message from <@${msg.author.id}> as ${text_display} was detected in the message! Please adhere to community guidelines`);
 				msg.delete()
   				.then(msg => console.log(`Deleted message from ${msg.author.username}`))
   				.catch(console.error);

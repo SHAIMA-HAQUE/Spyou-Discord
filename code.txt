@@ -19,3 +19,4 @@ client.on("messageCreate", async msg => {
 		}); 
 	   }// with mention
 });
+@${msg.author.username}
