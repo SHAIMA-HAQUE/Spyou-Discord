@@ -2,7 +2,7 @@ const toxicity = require('@tensorflow-models/toxicity');
 
 const fs = require('node:fs');
 const { Client, Collection, Intents,MessageEmbed } = require('discord.js');
-const { token } = require('./config.json');
+//const { token } = require('./config.json');
 
 const client = new Client({ 
 	intents: [Intents.FLAGS.GUILDS,
@@ -75,4 +75,4 @@ client.on("messageCreate", async msg => {
    
 	
 
-client.login(token);
+client.login(process.env.DISCORD_TOKEN);
