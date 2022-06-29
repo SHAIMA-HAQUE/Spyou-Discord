@@ -1,9 +1,11 @@
 const toxicity = require('@tensorflow-models/toxicity');
 
 const fs = require('node:fs');
+// Require the necessary discord.js classes
 const { Client, Collection, Intents,MessageEmbed } = require('discord.js');
 //const { token } = require('./config.json');
 
+// Create a new client instance
 const client = new Client({ 
 	intents: [Intents.FLAGS.GUILDS,
 			Intents.FLAGS.GUILD_MESSAGES,
@@ -37,6 +39,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
+// When the client is ready, run this code (only once)
 client.once('ready', async() => {
 	model = await toxicity.load(threshold);
 	console.log('Ready!');
@@ -74,5 +77,5 @@ client.on("messageCreate", async msg => {
 });
    
 	
-
+// Login to Discord with your client's token
 client.login(process.env.DISCORD_TOKEN);
