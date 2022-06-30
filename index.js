@@ -3,7 +3,7 @@ const toxicity = require('@tensorflow-models/toxicity');
 const fs = require('node:fs');
 // Require the necessary discord.js classes
 const { Client, Collection, Intents,MessageEmbed } = require('discord.js');
-//const { token } = require('./config.json');
+const { token } = require('./config.json'); //comment out for deployment
 
 // Create a new client instance
 const client = new Client({ 
@@ -54,28 +54,28 @@ client.on("messageCreate", async msg => {
 		let predictions = await model.classify(text);
 		predictions.forEach(prediction => {
 			if(prediction.results[0].match){
-				// channel.messages.cache.delete(message.id);
 				pred.push(prediction.label);
 			}
 		});
 		var text_display = "";
-            if(pred.length != 1 && pred.length >0){
-            for(let i=0; i<pred.length-1;i++){
-                text_display += pred[i].charAt(0).toUpperCase() + pred[i].slice(1) + " and ";
-            }
-            text_display += pred[pred.length-1].charAt(0).toUpperCase() + pred[pred.length-1].slice(1);
-          	}else if(pred.length == 1){
-            	text_display = pred[0].charAt(0).toUpperCase() + pred[0].slice(1);
-          	}
-			if (pred.length !=0){
-				msg.channel.send(`Deleted message from <@${msg.author.id}> as ${text_display} was detected in the message! Please adhere to community guidelines`);
-				msg.delete()
-  				.then(msg => console.log(`Deleted message from ${msg.author.username}`))
-  				.catch(console.error);
+        if(pred.length != 1 && pred.length >0){
+			for(let i=0; i<pred.length-1;i++){
+					text_display += pred[i].charAt(0).toUpperCase() + pred[i].slice(1) + " and ";
 			}
+			text_display += pred[pred.length-1].charAt(0).toUpperCase() + pred[pred.length-1].slice(1);
+		}else if(pred.length == 1){
+			text_display = pred[0].charAt(0).toUpperCase() + pred[0].slice(1);
+		}
+		if (pred.length !=0){
+			msg.channel.send(`Deleted message from <@${msg.author.id}> as ${text_display} was detected in the message! Please adhere to community guidelines`);
+			msg.delete()
+			.then(msg => console.log(`Deleted message from ${msg.author.username}`))
+			.catch(console.error);
+		}
 	   }// with mention
 });
    
 	
 // Login to Discord with your client's token
-client.login(process.env.DISCORD_TOKEN);
+client.login(token);
+//process.env.DISCORD_TOKEN -> for heroku
