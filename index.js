@@ -48,8 +48,9 @@ client.once('ready', async() => {
 
 client.on("messageCreate", async msg => {
 	var pred = [];
-	if (msg.author.bot) { return; }
-	else{
+	if (msg.author.bot) { 
+		return; 
+	}else{
 		text = msg.content;
 		let predictions = await model.classify(text);
 		predictions.forEach(prediction => {
