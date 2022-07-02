@@ -47,7 +47,7 @@ client.once('ready', async() => {
 
 
 client.on("messageCreate", async msg => {
-	var pred = [];
+	let pred = [];
 	if (msg.author.bot) { 
 		return; 
 	}else{
@@ -58,7 +58,7 @@ client.on("messageCreate", async msg => {
 				pred.push(prediction.label);
 			}
 		});
-		var text_display = "";
+		let text_display = "";
         if(pred.length != 1 && pred.length >0){
 			for(let i=0; i<pred.length-1;i++){
 					text_display += pred[i].charAt(0).toUpperCase() + pred[i].slice(1) + " and ";
